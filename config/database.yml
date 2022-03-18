@@ -14,9 +14,9 @@ development:
 
 test:
   database: <%= ENV['PECK_PORTAL_DATABASE_NAME'] %>
-  <<: *default
+  <<      : *default
 
 production:
   database: <%= ENV['PECK_PORTAL_DATABASE_NAME'] %>
-  <<: *default
+  <<      : *default
 
