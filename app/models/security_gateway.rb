@@ -1,0 +1,2 @@
+class SecurityGateway < ApplicationRecord
+end

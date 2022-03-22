@@ -12,4 +12,8 @@ class User < ApplicationRecord
 
     validates_presence_of :email
     validates_uniqueness_of :email, case_sensitive: false
+    
+    # def self.find_in_cache uid, token
+
+    # end
 end
