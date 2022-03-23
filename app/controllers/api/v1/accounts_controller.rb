@@ -6,7 +6,15 @@ class Api::V1::AccountsController < ApplicationController
     @account.status = User::Status::VALIDATING
 
     if @account.save
-      token = @account.generate_token
+      token = @account.generate_token      
+      security_gateway = SecurityGateway.find_by(code: 'account_setup')
+
+      UserSecurityGateway.create(
+        security_gateway_id: security_gateway.id,
+        user_id: @account.id,
+        current_step: 1,
+        status: 'doing'
+      )
 
       render json: {
         account: @account.as_json(except: [

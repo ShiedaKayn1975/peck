@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  security_gateway: one
+  user: one
+  current_step: 1
+  status: MyString
+
+two:
+  security_gateway: two
+  user: two
+  current_step: 1
+  status: MyString
