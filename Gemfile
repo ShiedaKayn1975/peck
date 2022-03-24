@@ -27,6 +27,7 @@ gem 'bootsnap', '>= 1.4.2', require: false
 gem 'dotenv-rails'
 gem 'jwt'
 gem 'rack-cors'
+gem 'enumerize'
 
 group :development, :test do
   gem 'pry-rails'
