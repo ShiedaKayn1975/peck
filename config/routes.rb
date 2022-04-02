@@ -5,6 +5,10 @@ Rails.application.routes.draw do
       post 'signup' , to: 'accounts#create'
       post 'signin' , to: 'sessions#create'
       get  'profile', to: 'me#profile'
+
+      jsonapi_resources :users do
+        resources :actions, only: [:create, :index]
+      end
     end
   end
 end

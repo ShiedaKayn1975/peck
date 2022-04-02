@@ -1,5 +1,6 @@
 class User < ApplicationRecord
   include SecureTokens
+  include Actionable
 
   module Status
     ACTIVE = 'active'
@@ -20,6 +21,10 @@ class User < ApplicationRecord
 
   validates_presence_of :email
   validates_uniqueness_of :email, case_sensitive: false
+
+  action :test do
+
+  end
     
   # def self.find_in_cache uid, token
 

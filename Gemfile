@@ -28,6 +28,7 @@ gem 'dotenv-rails'
 gem 'jwt'
 gem 'rack-cors'
 gem 'enumerize'
+gem 'jsonapi-resources'
 
 group :development, :test do
   gem 'pry-rails'
