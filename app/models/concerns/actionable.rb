@@ -66,5 +66,6 @@ module Actionable
   class Error < StandardError
   end
 
-  
+  class ActorMissingError << StandardError
+  end
 end
