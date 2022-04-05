@@ -22,8 +22,26 @@ class User < ApplicationRecord
   validates_presence_of :email
   validates_uniqueness_of :email, case_sensitive: false
 
-  action :test do
+  action :commit_security_gateway do
+    label "Commit secuity gateway"
 
+    show? do |object, context|
+      true
+    end
+
+    authorized? do |object, context|
+      true
+    end
+
+    commitable? do |object, context|
+      true
+    end
+
+    commit do |object, context|
+      
+      binding.pry
+      
+    end
   end
     
   # def self.find_in_cache uid, token
