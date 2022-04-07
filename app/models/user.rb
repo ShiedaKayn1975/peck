@@ -43,6 +43,28 @@ class User < ApplicationRecord
       
     end
   end
+
+  action :ignore_security_gateway do
+    label "Ignore security gateway"
+
+    show? do |object, context|
+
+    end
+
+    authorized? do |object, context|
+      true
+    end
+
+    commitable? do |object, context|
+      true
+    end
+
+    commit do |object, context|
+      
+      binding.pry
+      
+    end
+  end
     
   # def self.find_in_cache uid, token
 

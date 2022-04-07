@@ -42,6 +42,12 @@ module Actionable
       @action.code = name
     end
 
+    def with_options options
+      options.each do |key, value|
+        send("#{key}", value)
+      end
+    end
+
     def label label
       @action.label = label
     end
@@ -66,6 +72,24 @@ module Actionable
   class Error < StandardError
   end
 
-  class ActorMissingError < StandardError
+  class InvalidDataError < Error
+  end
+  
+  class Context < Hash
+    [:actor, :data].each do |attr_name|
+      define_method attr_name do
+        self[attr_name]
+      end
+
+      define_method "#{attr_name}=".to_sym do |value|
+        self[attr_name] = value
+      end
+    end
+
+    def initialize options = {}
+      options.each do |key, value|
+        self[key] = value
+      end
+    end
   end
 end

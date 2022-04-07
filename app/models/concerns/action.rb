@@ -35,9 +35,39 @@ class Action
   def execute object, context
     verify_context context
 
-    if commitable
-      commit object, context
+    log = initialize_action_log object, context
+
+    if !(commitable = authorized?(object, context))
+      log.state = ActionLog::State::Aborted
+      log.error = { message: 'Unauthorized'}
+    elsif !(commitable_ = (commitable && commitable?(object, context)))
+      log.state = ActionLog::State::Aborted
+      log.error = { message: 'Wrong context'}
     end
+
+    if commitable_
+      begin
+        commit object, context
+        log.state = ActionLog::State::Finished
+      rescue Actionable::InvalidDataError => ex
+        log.state = ActionLog::State::Aborted
+        log.error = { message: ex.message }
+      end
+    end
+    log.save!
+    log
+  end
+
+  def initialize_action_log object, context
+    ActionLog.create!(
+      state: ActionLog::State::Created,
+      actor_id: context.actor.id,
+      actionable: object,
+      action_code: self.code,
+      action_label: self.label,
+      action_data: context.data || {},
+      context: {},
+    )
   end
 
   def verify_context context

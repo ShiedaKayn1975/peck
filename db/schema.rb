@@ -10,10 +10,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_03_25_105112) do
+ActiveRecord::Schema.define(version: 2022_04_07_154025) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "action_logs", force: :cascade do |t|
+    t.string "state"
+    t.string "action_code"
+    t.string "action_label"
+    t.jsonb "action_data"
+    t.jsonb "context"
+    t.bigint "actor_id"
+    t.string "actionable_type"
+    t.bigint "actionable_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "security_gateways", force: :cascade do |t|
     t.string "code"
