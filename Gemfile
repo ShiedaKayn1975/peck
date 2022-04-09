@@ -29,6 +29,8 @@ gem 'jwt'
 gem 'rack-cors'
 gem 'enumerize'
 gem 'jsonapi-resources'
+gem 'sendinblue', '~> 2.2'
+gem 'net-smtp', require: false
 
 group :development, :test do
   gem 'pry-rails'

@@ -32,7 +32,8 @@ class Api::V1::ActionsController < Api::V1::ApiController
 
   def get_context
     context = Actionable::Context.new(
-      actor: current_user
+      actor: current_user,
+      data: params[:action_data]
     )
 
     context
