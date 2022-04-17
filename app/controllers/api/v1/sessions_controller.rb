@@ -1,6 +1,6 @@
 class Api::V1::SessionsController < ApplicationController
-  skip_before_action :verify_authenticity_token, :only => [:create, :verify_activation_token]
-  before_action :authenticate_user!, only: [:verify_activation_token]
+  skip_before_action :verify_authenticity_token, :only => [:create, :verify_activation_token, :change_password]
+  before_action :authenticate_user!, only: [:verify_activation_token, :change_password]
   DISABLED_LOGIN_MESSAGE='Your account is disabled'.freeze
 
   def create
@@ -48,6 +48,22 @@ class Api::V1::SessionsController < ApplicationController
     user = current_user
     user.status = User::Status::ACTIVE
     user.save
+
+    return render json: {
+      message: "Ok"
+    }, status: :ok
+  end
+
+  def change_password
+    current_password = params["current_password"]
+    new_password = params["new_password"]
+    confirm_new_password = params["confirm_new_password"]
+
+    return render_error "Current password is invalid" unless current_user.authenticate(current_password)
+    return render_error "Invalid password" unless new_password.length > 5
+    return render_error "New password doesn't match with confirm new password" unless (new_password == confirm_new_password)
+
+    current_user.update(password: new_password)
 
     return render json: {
       message: "Ok"

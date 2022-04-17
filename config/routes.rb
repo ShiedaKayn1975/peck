@@ -5,6 +5,7 @@ Rails.application.routes.draw do
       post 'signup' , to: 'accounts#create'
       post 'signin' , to: 'sessions#create'
       post 'verify_activation_token', to: 'sessions#verify_activation_token'
+      post 'change_password', to: 'sessions#change_password'
       get  'profile', to: 'me#profile'
 
       jsonapi_resources :users do
