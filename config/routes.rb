@@ -11,6 +11,8 @@ Rails.application.routes.draw do
       jsonapi_resources :users do
         resources :actions, only: [:create, :index]
       end
+
+      jsonapi_resources :products
     end
   end
 end

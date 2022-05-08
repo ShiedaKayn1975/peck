@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_04_08_153608) do
+ActiveRecord::Schema.define(version: 2022_05_08_144830) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -29,13 +29,23 @@ ActiveRecord::Schema.define(version: 2022_04_08_153608) do
     t.jsonb "error"
   end
 
+  create_table "products", force: :cascade do |t|
+    t.string "name"
+    t.string "tags"
+    t.string "images"
+    t.float "quality_commitment"
+    t.float "price"
+    t.bigint "creator_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "security_gateways", force: :cascade do |t|
     t.string "code"
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.jsonb "steps", default: {}
-    t.string "title"
   end
 
   create_table "user_security_gateways", force: :cascade do |t|

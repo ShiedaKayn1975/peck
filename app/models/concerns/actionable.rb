@@ -92,4 +92,26 @@ module Actionable
       end
     end
   end
+
+  module JSONAPIResource
+    def self.included base
+      base.before_save do
+        if @model.class.const_defined? :Actions
+          @is_new = is_new?
+        end
+      end
+
+      base.after_save do
+        if @model.class.const_defined? :Actions
+          if action = @model.class::Actions[@is_new ? :create : :update]
+            ctx = Actionable::Context.new(
+              actor: context[:user],
+              data: {}
+            )
+            action_log = action.commit!(@model, ctx)
+          end
+        end
+      end
+    end
+  end
 end
