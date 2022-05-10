@@ -13,6 +13,7 @@ Rails.application.routes.draw do
       end
 
       jsonapi_resources :products
+      jsonapi_resources :users
     end
   end
 end
