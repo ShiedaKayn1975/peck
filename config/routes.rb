@@ -12,9 +12,15 @@ Rails.application.routes.draw do
         resources :actions, only: [:create, :index]
       end
 
-      jsonapi_resources :products
+      jsonapi_resources :products do
+        resources :actions, only: [:create, :index]
+      end
       jsonapi_resources :users
       jsonapi_resources :categories
+
+      jsonapi_resources :auction_products do
+        resources :actions, only: [:create, :index]
+      end
     end
   end
 end
