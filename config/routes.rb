@@ -20,6 +20,9 @@ Rails.application.routes.draw do
 
       jsonapi_resources :auction_products do
         resources :actions, only: [:create, :index]
+        member do
+          get :get_comments_history
+        end
       end
     end
   end

@@ -127,6 +127,27 @@ class User < ApplicationRecord
       object.send_activation_email
     end
   end
+
+  action :switch_app do
+    label "Send activation email"
+
+    show? do |object, context|
+      false
+    end
+
+    authorized? do |object, context|
+      object.id == context[:actor].id
+    end
+
+    commitable? do |object, context|
+      true
+    end
+    
+    commit do |object, context|
+      object.current_app = context[:data]["app"]
+      object.save
+    end
+  end
     
   # def self.find_in_cache uid, token
 
