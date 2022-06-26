@@ -1,0 +1,5 @@
+:schedule:
+  CheckAuctionStart:
+    cron: '0 * * * * *'
+  CheckAuctionFinish:
+    cron: '0 * * * * *'

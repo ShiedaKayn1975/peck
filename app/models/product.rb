@@ -33,6 +33,7 @@ class Product < ApplicationRecord
         new_auction.status = AuctionProduct::Status::WAITING
         new_auction.start_at = start_at
         new_auction.finish_at = finish_at
+        new_auction.current_price = price
       end
 
       new_auction_product.save

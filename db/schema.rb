@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_06_20_084058) do
+ActiveRecord::Schema.define(version: 2022_06_26_070559) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -36,12 +36,13 @@ ActiveRecord::Schema.define(version: 2022_06_20_084058) do
     t.float "cost"
     t.jsonb "extra"
     t.string "title"
-    t.bigint "winner"
+    t.bigint "winner_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "status"
     t.datetime "finish_at"
     t.datetime "start_at"
+    t.float "current_price"
   end
 
   create_table "categories", force: :cascade do |t|

@@ -23,6 +23,8 @@ gem 'bcrypt', '~> 3.1.7'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.2', require: false
+gem 'pundit'
+gem 'jsonapi-authorization', github: 'matteolc/jsonapi-authorization'
 
 gem 'dotenv-rails'
 gem 'jwt'
@@ -31,6 +33,11 @@ gem 'enumerize'
 gem 'jsonapi-resources'
 gem 'sendinblue', '~> 2.2'
 gem 'net-smtp', require: false
+
+gem 'sidekiq'
+gem 'sidekiq-status'
+gem 'sidekiq-scheduler'
+gem 'redis-mutex'
 
 group :development, :test do
   gem 'pry-rails'
