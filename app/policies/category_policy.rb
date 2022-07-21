@@ -1,10 +1,10 @@
-class UserPolicy < BasePolicy
-  def index?
+class CategoryPolicy < BasePolicy
+    def index?
     true
   end
 
   def create?
-    true
+    false
   end
 
   def show?
@@ -12,11 +12,11 @@ class UserPolicy < BasePolicy
   end
 
   def update?
-    true
+    false
   end
 
   def destroy?
-    true
+    false
   end
 
   class Scope < Scope

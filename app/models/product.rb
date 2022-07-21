@@ -1,4 +1,5 @@
 class Product < ApplicationRecord
+  has_many :orders, class_name: 'Order', foreign_key: :product_id
   include Actionable
 
   action :new_campaign do
@@ -19,21 +20,21 @@ class Product < ApplicationRecord
     commit do |object, context|
       data = context[:data]
 
-      raise InvalidDataError.new("Price and Title cannot be blank!") if (data["price"].blank? || data["title"].blank?)
+      raise InvalidDataError.new("Giá và tiêu đề không được để trống!") if (data["price"].blank? || data["title"].blank?)
 
       start_at = data["start_at"].to_datetime
-      raise InvalidDataError.new("Invalid start at time!") if start_at <= Time.now
+      raise InvalidDataError.new("Thời gian bắt đầu không hợp lệ!") if start_at <= Time.now
       finish_at = start_at + 12.hours
 
       new_auction_product = AuctionProduct.new do |new_auction|
         new_auction.product_id = object.id
         new_auction.creator_id = context[:actor].id
-        new_auction.price = data["price"]
+        new_auction.price = data["price"].to_i
         new_auction.title = data["title"]
         new_auction.status = AuctionProduct::Status::WAITING
         new_auction.start_at = start_at
         new_auction.finish_at = finish_at
-        new_auction.current_price = price
+        new_auction.current_price = data["price"].to_i
       end
 
       new_auction_product.save

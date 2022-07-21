@@ -3,8 +3,8 @@ class Api::V1::AccountsController < ApplicationController
 
   INITIAL_STEP = 1
 
-  def create
-    @account = Account.new(registration_params)
+  def create    
+    @account = Account.new(registration_params)    
     @account.status = User::Status::VALIDATING
     security_gateway = SecurityGateway.find_by(code: 'account_setup')
 
@@ -13,6 +13,7 @@ class Api::V1::AccountsController < ApplicationController
 
       if security_gateway.blank?
         @account.status = User::Status::ACTIVE
+        @account.current_app = 'seller'
         @account.save
       else
         UserSecurityGateway.create(
@@ -37,6 +38,7 @@ class Api::V1::AccountsController < ApplicationController
   private
 
   def registration_params
-    params.permit(:email, :password, :password_confirmation)
+    params.permit(:email, :password, :password_confirmation, :phone, :address, id_card: [:id_card_number, :created_at, :front_card, :back_card, :created_address])
   end
 end
+

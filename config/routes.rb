@@ -26,6 +26,10 @@ Rails.application.routes.draw do
           get :get_comments_history
         end
       end
+
+      jsonapi_resources :orders do
+        resources :actions, only: [:create, :index]
+      end
     end
   end
 end

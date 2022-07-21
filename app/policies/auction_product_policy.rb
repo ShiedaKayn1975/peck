@@ -21,7 +21,11 @@ class AuctionProductPolicy < BasePolicy
   
     class Scope < Scope
       def resolve
-        scope.all
+        if context[:user].current_app == 'seller'
+          scope.where(creator_id: context[:user].id)
+        else
+          scope.all
+        end
       end
     end
   end

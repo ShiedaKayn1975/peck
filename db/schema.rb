@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_06_26_070559) do
+ActiveRecord::Schema.define(version: 2022_07_10_062451) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -51,6 +51,28 @@ ActiveRecord::Schema.define(version: 2022_06_26_070559) do
     t.boolean "active"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "orders", force: :cascade do |t|
+    t.string "code"
+    t.jsonb "shipping_address"
+    t.float "total"
+    t.float "shipping_fee"
+    t.string "phone"
+    t.string "email"
+    t.datetime "paid_at"
+    t.boolean "cancelled"
+    t.datetime "cancelled_at"
+    t.string "cancelled_reason"
+    t.string "currency"
+    t.string "note"
+    t.bigint "auction_id"
+    t.bigint "product_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "owner_id"
+    t.bigint "customer_id"
+    t.string "status"
   end
 
   create_table "products", force: :cascade do |t|
@@ -94,6 +116,8 @@ ActiveRecord::Schema.define(version: 2022_06_26_070559) do
     t.string "phone"
     t.datetime "birthday"
     t.string "current_app"
+    t.jsonb "address"
+    t.jsonb "id_card"
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
